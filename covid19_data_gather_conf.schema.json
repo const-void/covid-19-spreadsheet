@@ -1,0 +1,224 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "covid19_data_gather_conf.schema.json",
+    "title": "covid19_data_gather_conf.json",
+    "description": "Email and spreadsheet configuration for covid19_data_gather.py",
+    "type": "object",
+    "properties": {
+        "settings": {
+            "type": "object",
+            "properties": {
+                "send-email": {
+                    "description": "When true, send email.",
+                    "type": "boolean"
+                },
+                "send-email-client": {
+                    "description": "Email client used to send email w/xlsx attachments",
+                    "type": "string",
+                    "enum": [
+                        "Outlook",
+                        "N/A"
+                    ]
+                },
+                "send-email-to": {
+                    "description": "Email recipient list",
+                    "type": "array",
+                    "uniqueItems": true,
+                    "items": {
+                        "type": "string",
+                        "format": "email"
+                    }
+                },
+                "send-email-style": {
+                    "description": "HTML style for email body",
+                    "type": "string"
+                },
+                "send-email-greeting": {
+                    "description": "Email greeting / HTML prefix used to begin email",
+                    "type": "string"
+                },
+                "send-email-signature": {
+                    "description": "Email signature / HTML suffix used to conclude email",
+                    "type": "string"
+                },
+                "case-min-benchmark": {
+                    "description": "Minimum amount of cases before a geography is included in spreadsheet output",
+                    "type": "number",
+                    "minimum": 0
+                },
+                "case-days-duration": {
+                    "description": "Average duration of COVID-19 case",
+                    "type": "number",
+                    "minimum": 1
+                },
+                "geography-per-county": {
+                    "description": "Per population at county level.  1 is per capita; 100000 is CDC.",
+                    "type": "number",
+                    "minimum": 1
+                },
+                "geography-per-state": {
+                    "description": "Per population at state leve.  1 is per capita; 100000 is CDC.",
+                    "type": "number",
+                    "minimum": 1
+                }
+            },
+            "required": [
+                "send-email",
+                "case-min-benchmark",
+                "case-days-duration",
+                "geography-per-county",
+                "geography-per-state"
+            ]
+        },
+        "spreadsheets": {
+            "type": "object",
+            "properties": {
+                "us": {
+                    "description": "When true, generate spreadsheet with US/State level summary.",
+                    "type": "boolean"
+                },
+                "state-detail": {
+                    "description": "List of states to generate state spreadsheet with county data.",
+                    "type": "array",
+                    "uniqueItems": true,
+                    "items": {
+                        "type": "string",
+                        "enum": [
+                            "AL",
+                            "AK",
+                            "AZ",
+                            "AR",
+                            "CA",
+                            "CO",
+                            "CT",
+                            "DE",
+                            "FL",
+                            "GA",
+                            "HI",
+                            "ID",
+                            "IL",
+                            "IN",
+                            "IA",
+                            "KS",
+                            "KY",
+                            "LA",
+                            "ME",
+                            "MD",
+                            "MA",
+                            "MI",
+                            "MN",
+                            "MS",
+                            "MO",
+                            "MT",
+                            "NE",
+                            "NV",
+                            "NH",
+                            "NJ",
+                            "NM",
+                            "NY",
+                            "NC",
+                            "ND",
+                            "OH",
+                            "OK",
+                            "OR",
+                            "PA",
+                            "RI",
+                            "SC",
+                            "SD",
+                            "TN",
+                            "TX",
+                            "UT",
+                            "VT",
+                            "VA",
+                            "WA",
+                            "WV",
+                            "WI",
+                            "WY"
+                        ]
+                    }
+                },
+                "custom": {
+                    "description": "Spreadsheets consisting of tailored county / state geographies.",
+                    "type": "object",
+                    "minProperties": 0,
+                    "additionalProperties": {
+                        "description": "Spreadsheet name.",
+                        "type": "array",
+                        "uniqueItems": true,
+                        "items": {
+                            "type": "string",
+                            "oneOf": [
+                                {
+                                    "pattern": "^([a-zA-Z ]+), ([A-Z][A-Z])$"
+                                },
+                                {
+                                    "enum": [
+                                        "AL",
+                                        "AK",
+                                        "AZ",
+                                        "AR",
+                                        "CA",
+                                        "CO",
+                                        "CT",
+                                        "DE",
+                                        "FL",
+                                        "GA",
+                                        "HI",
+                                        "ID",
+                                        "IL",
+                                        "IN",
+                                        "IA",
+                                        "KS",
+                                        "KY",
+                                        "LA",
+                                        "ME",
+                                        "MD",
+                                        "MA",
+                                        "MI",
+                                        "MN",
+                                        "MS",
+                                        "MO",
+                                        "MT",
+                                        "NE",
+                                        "NV",
+                                        "NH",
+                                        "NJ",
+                                        "NM",
+                                        "NY",
+                                        "NC",
+                                        "ND",
+                                        "OH",
+                                        "OK",
+                                        "OR",
+                                        "PA",
+                                        "RI",
+                                        "SC",
+                                        "SD",
+                                        "TN",
+                                        "TX",
+                                        "UT",
+                                        "VT",
+                                        "VA",
+                                        "WA",
+                                        "WV",
+                                        "WI",
+                                        "WY"
+                                    ]
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "required": [
+                "us",
+                "state-detail",
+                "custom"
+            ]
+        }
+    },
+    "required": [
+        "settings",
+        "spreadsheets"
+    ]
+}
