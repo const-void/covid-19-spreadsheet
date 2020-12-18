@@ -270,6 +270,15 @@ def load_configuration():
 
 def update_data():
     br()
+
+    if not os.path.exists(g_covid19_data_path):
+        t_clone = log_start("First run - cloning nyt source data!")
+        cr = Repo.clone_from(
+            "https://github.com/nytimes/covid-19-data", g_covid19_data_path)
+        log_start("Complete!")
+        log_end(t_clone)
+
+
     t = log_start("Checking nyt source data... ")
     r = Repo(g_covid19_data_path)
     cur_head = r.head.commit
