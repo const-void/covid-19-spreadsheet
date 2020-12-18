@@ -17,7 +17,7 @@
         }
     },
     "settings": {
-        "send-email": true,
+        "send-email": false,
         "send-email-client": "Outlook",
         "send-email-to": [
             "somebody@somewhere.net"
