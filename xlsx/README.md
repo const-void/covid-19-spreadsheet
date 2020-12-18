@@ -1,0 +1,1 @@
+This directory contains all generated spreadsheets. Spreadsheets will be named: covid19_YYYY_MM_DD_<Region|Custom Name>_data.xlsx
