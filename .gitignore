@@ -1,0 +1,5 @@
+*.xlsx
+.vscode
+*.code-workspace
+*.lnk
+covid19_data_gather_conf.json

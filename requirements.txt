@@ -1,0 +1,4 @@
+openpyxl
+gitpython  
+pywin32
+fastjsonschema

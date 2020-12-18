@@ -1,0 +1,33 @@
+{
+    "spreadsheets": {
+        "us": true,
+        "state-detail": [
+            "ND",
+            "SD"
+        ],
+        "custom": {
+            "dakota_battle": [
+                "ND",
+                "SD"
+            ],
+            "dakota_battle_capital": [
+                "Burleigh County, ND",
+                "Hughes County, SD"
+            ]
+        }
+    },
+    "settings": {
+        "send-email": true,
+        "send-email-client": "Outlook",
+        "send-email-to": [
+            "somebody@somewhere.net"
+        ],
+        "send-email-style": "font-family: Trebuchet MS; color:#25253b; font-size:14pt",
+        "send-email-greeting": "Hello!<br>",
+        "send-email-signature": "xoxo<br>Yours Truly",
+        "case-min-benchmark": 1,
+        "case-days-duration": 28,
+        "geography-per-county": 100000,
+        "geography-per-state": 100000
+    }
+}
