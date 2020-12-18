@@ -6,6 +6,7 @@ import sys
 import csv
 import copy
 import os.path
+import shutil
 
 # date math
 import datetime
@@ -44,6 +45,7 @@ from enum import Enum
 g_py_path = Path(__file__).resolve().parent
 g_json_path = g_py_path / "covid19_data_gather_conf.json"
 g_json_path_orig = g_json_path
+g_json_path_default = g_py_path / "sample_covid19_data_gather_conf.json"
 g_json_schema_path = g_py_path / "covid19_data_gather_conf.schema.json"
 g_xlsx_path = g_py_path / "xlsx"
 g_root_path = g_py_path.parent
@@ -229,7 +231,23 @@ def load_configuration():
             print()
 
     if not cmdline_override and not os.path.exists(g_json_path):
-        print("No conf")
+        if os.path.exists(g_json_path_default):
+            print()
+            t_copy = log_start(
+                f"No custom configuration found at {g_json_path} -- create")
+            shutil.copy(g_json_path_default, g_json_path)
+            log_end(t_copy)
+            print()
+            print(f"Be sure to modify {g_json_path} to suit your needs!")
+            print()
+        else:
+            print()
+            print(
+                f"No custom configuration found at {g_json_path}, nor is there a default file at {g_json_path_default}.")
+            print()
+            print("Consider recloning from https://github.com/const-void/covid-19-spreadsheet or supplying a configuration file via command line.")
+            print()
+            abort()
 
     t = log_start('Load settings')
 
