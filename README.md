@@ -159,6 +159,7 @@ When NYT started reporting on covid-19, each day would introduce a slew of new U
 From [Census.gov](https://www.census.gov/geographies/reference-files/2018/demo/popest/2018-fips.html):
 ## [all-geocodes-v2018.csv](https://github.com/const-void/covid-19-spreadsheet/blob/master/all-geocodes-v2018.csv)
 [spreadsheet](https://www2.census.gov/programs-surveys/popest/geographies/2018/all-geocodes-v2018.xlsx) => csv.
+
 **Country Data**
 * Estimates Geography File: Vintage 2018
 * Source: U.S. Census Bureau, Population Division
@@ -180,8 +181,9 @@ Col #  | Field Name  | Desc | Sample
 7 | Area Name | | `Autauga County`
 
 ## [state-geocodes-v2018.csv](https://github.com/const-void/covid-19-spreadsheet/blob/master/state-geocodes-v2018.csv)
-**State Data**
 [spreadsheet](https://www2.census.gov/programs-surveys/popest/geographies/2018/state-geocodes-v2018.xlsx) => csv
+
+**State Data**
 * Source: U.S. Census Bureau, Population Division
 * Internet Release Date: May 2019
 
@@ -201,8 +203,9 @@ Simply knowing geography and case wasn't enough--I wanted to know the sense of s
 just within a geography...but also *across* geographies.  How do counties compare to other counties? And states?
 
 ## [co-est2019-annres.csv](https://github.com/const-void/covid-19-spreadsheet/blob/master/co-est2019-annres.csv)
-**County Population Estimates**
 [src](https://www.census.gov/newsroom/press-kits/2020/pop-estimates-county-metro.html) [spreadsheet](https://www2.census.gov/programs-surveys/popest/tables/2010-2019/counties/totals/co-est2019-annres.xlsx) => csv
+
+**County Population Estimates**
 * Annual Estimates of the Resident Population for Counties in the United States: April 1, 2010 to July 1, 2019 (CO-EST2019-ANNRES)
 * Source: U.S. Census Bureau, Population Division	
 * Release Date: March 2020	
@@ -228,9 +231,10 @@ Col # | Field Name | Desc | Sample
 13 | 2019 | | `55869`
 
 ## [nst-est2019-01.csv](https://github.com/const-void/covid-19-spreadsheet/blob/master/nst-est2019-01.csv)
-**State Population Estimates**
 [src](https://www.census.gov/data/tables/time-series/demo/popest/2010s-national-total.html
 ) [spreadsheet](https://www2.census.gov/programs-surveys/popest/tables/2010-2019/state/totals/nst-est2019-01.xlsx) => csv
+
+**State Population Estimates**
 * Table 1. Annual Estimates of the Resident Population for the United States, Regions, States, and Puerto Rico: April 1, 2010 to July 1, 2019 (NST-EST2019-01)												
 * Source: U.S. Census Bureau, Population Division												
 * Release Date: December 2019	
