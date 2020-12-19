@@ -91,9 +91,9 @@ For a while, I was generating spreadsheets and not sending...but...what's the po
 
 key | type | required | desc | example
 --- | ---- | -------- | ---- | -------
-us  | boolean | yes | controls generation of summary (US) level spreadsheet, consisting of all 50 states! | `"us": true`
-state-detail | array of states | yes | controls generation of summary (state) level spreadsheets, consisting of each county in a given state.  One spreadsheet per state is generated. | `"state-detail": ['ND', 'SD']`
-custom | list | yes | list of spreadsheets to generate. each property is a  spreadsheet name; property value is a state or a county, state.  One spreadsheet per property is generated. | `"custom": { "north_dakota": [ "Burleigh County, ND", "ND" ] }`
+us  | Boolean | Yes | Controls generation of summary (US) level spreadsheet, consisting of all 50 states! | `"us": true`
+state-detail | Array of states | Yes | Controls generation of summary (state) level spreadsheets, consisting of each county in a given state.  One spreadsheet per state is generated. | `"state-detail": ['ND', 'SD']`
+custom | List | Yes | List of spreadsheets to generate. each property is a  spreadsheet name; property value is a state or a county, state.  One spreadsheet per property is generated. | `"custom": { "north_dakota": [ "Burleigh County, ND", "ND" ] }`
 
 ## "settings": {}
 This configuration block controls the script itself.  Fiddle with these settings to change the data we see.  Don't like my take of a 28 day average case...lower it.  Or, raise it.  what happens?   Want to change the comparative per scales -- is 100k too big? Too small?  Or do we want to exclude vast swathes of the country?  The below settings allow you to do *just* that--manipulate the data as *you* see fit.
@@ -102,14 +102,14 @@ This configuration block controls the script itself.  Fiddle with these settings
 key | type | required | desc | example
 --- | ---- | -------- | ---- | -------
 case-min-benchmark | Number | Yes | Minimum number of cases; acts a a reporting gate. If we want to eliminate low caseload geographies, we set this property to filter to just the caseloads we are interested in--say those at 100,000 or more, or even--minimum of 10, 1000.  | `"case-min-benchmark": 1`
-case-days-duration | Number | yes | Average case duration - used in active vs recovered calculations. | `"case-days-duration": 28`
-geography-per-county | Number | yes | Scaling factor for counties. Per capita is a value of one; cdc uses 100k. | `"geography-per-county": 100000`
-geography-per-state | Number | yes |  Scaling factor for states. Per capita is a value of one; cdc uses 100k. | `"geography-per-state": 100000`
+case-days-duration | Number | Yes | Average case duration - used in active vs recovered calculations. | `"case-days-duration": 28`
+geography-per-county | Number | Yes | Scaling factor for counties. Per capita is a value of one; cdc uses 100k. | `"geography-per-county": 100000`
+geography-per-state | Number | Yes |  Scaling factor for states. Per capita is a value of one; cdc uses 100k. | `"geography-per-state": 100000`
 
 *Email Settings*
 key | type | required | desc | example
 --- | ---- | -------- | ---- | -------
-send-email  | Boolean | Yes | Send email if true | `"send-email": true`
+send-email | Boolean | Yes | Send email if true | `"send-email": true`
 send-email-client | Enumeration | No | One of `Outlook` or `N/A`, sadly. | `"send-email-client": "Outlook"`
 send-email-to | Array of emails | No | List of email addresses to send to. | `"send-email-to": [ "a@bc.com" ]`
 send-email-style | String | No | HTML styling for a swank email. | `"send-email-style": "font-family: Trebuchet MS; color:#25253b; font-size:14pt"`
@@ -136,15 +136,15 @@ covid-19-spreadsheet/
 
 Col #  | Field Name  | Desc | Sample 
 ------ | ----------- | ---- | ------
-1 | data | | `2020-01-21`
-2 | county | | `Snohomish`
-3 | state | | `Washington`
-4 | fips | | `53061`
-5 | cases | | `1`
-6 | deaths | | `0`
+1 | Date | | `2020-01-21`
+2 | County | | `Snohomish`
+3 | State | | `Washington`
+4 | Fips | State FIPS + County FIPS | `53061`
+5 | Cases | | `1`
+6 | Deaths | | `0`
 
 # Geography Data
-When NYT started reporting on covid-19, each day would introduce a slew of new US geographies.  Initially, I thought maybe I could pull in the data as it was needed--but, as data came in, the performance impact just got to be too great. It is important to cache geograpy in adavnce - so that as data comes pouring in, it has a place to go.
+When NYT started reporting on covid-19, each day would introduce a slew of new US geographies.  Initially, I thought maybe I could pull in geography data as it was found--but, as data came in, the performance impact just got to be too great. It is important to cache geograpy in adavnce - so that as new geography data comes pouring in, it has a place to go.
 
 From [Census.gov](https://www.census.gov/geographies/reference-files/2018/demo/popest/2018-fips.html):
 ## [all-geocodes-v2018.csv](https://github.com/const-void/covid-19-spreadsheet/blob/master/all-geocodes-v2018.csv)
