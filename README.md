@@ -18,12 +18,9 @@ $ python ./covid19_data_gather.py sample_covid19_data_gather_conf.json
 # Goal
 I was pretty frusterated by how hard it was to answer simple questions--how many people HAVE covid, right now?  How does where I live, compare to where others live?  Are we doing ok, as a county, state, country? When I found out about the NYT data store, I jumped on it IMMEDIATELY.
 
-I also wanted to facilitate  analysis - so while emails are created automatically, 
-they are not sent; the idea is, I, as a sender review, covid-19 data and makes some sort of conclusion.
+I also wanted to facilitate  analysis - so while emails are created automatically, they are not sent; the idea is, I, as a sender review, covid-19 data and makes some sort of conclusion.
 
-Otherwise...why generate spreadsheets at all?  If we aren't looking at data, thinking about what we see,
-sharing our thoughts with others, it becomes a mindless data generation task; there are too many
-spreadsheet generators, dumping data in a directory, never to be looked at, "just in case".
+Otherwise...why generate spreadsheets at all?  If we aren't looking at data, thinking about what we see, sharing our thoughts with others, it becomes a mindless data generation task; there are too many spreadsheet generators, dumping data in a directory, never to be looked at, "just in case".
  
 # Dependencies
 * Git - https://git-scm.com/downloads  (for New York Times sync) 
@@ -73,21 +70,24 @@ PS > python .\covid19_data_gather.py sample_coivd19_data_gether_conf.json
 # JSON Configuration
 Case sensitive!
 
-`cov19_data_gather.py` without a command line parameter will look for a `covid19_data_gather_conf.json` file. If one
-isn't found, `sample_covid19_data_gather_conf.json` is used as starting place. Note that `covid19_data_gather_conf.json` is in `.gitignore` -- this way you can have your own setup without having to worry about git collisions etc.
+`cov19_data_gather.py` without a command line parameter will look for a `covid19_data_gather_conf.json` file. 
 
-Alternatively, a given `/path/to/conf.json` can specified on the command line.
+If one isn't found, `sample_covid19_data_gather_conf.json` is used as starting place. 
+
+Note that `covid19_data_gather_conf.json` is in `.gitignore` -- this way you can have your own setup without having to worry about git collisions etc.  Alternatively, a given `/path/to/conf.json` can specified on the command line.
 
 All json configurations are validated -- once at a schema level via `covid19_data_gather_conf.schema.json`, and again, to make sure the intended geographies are accurate - counties have to match both US & NYT data *exactly*, including case sensitivity.  
 
 `los angeles, ca` will *fail* validation.  `Los Angeles County, CA` will pass.
 
 There are two blocks, both required:
-* "spreadsheets": {}
-* "settings": {}
+* `"spreadsheets": {}`
+* `"settings": {}`
 
-## "spreadsheets": { }
-This block controls spreadsheet generation. Fiddle with these settings to hone in on geographies of interest. If an email will be spent, each spreadsheet generated is attached.  For a while, I was generating spreadsheets but not sending...but...what's the point?  The data isn't going anywhere.  When you want to look at a region -- add it in! When you are tire of it...take it out!
+## `"spreadsheets": {}`
+This block controls spreadsheet generation. Fiddle with these settings to hone in on geographies of interest. If an email will be sent, each spreadsheet generated is attached.
+
+For a while, I was generating spreadsheets and not sending...but...what's the point?  The data isn't going anywhere.  When we want to look at a region -- add it in! When we tire of it...take it out!
 
 key | type | required | desc | example
 --- | ---- | -------- | ---- | -------
@@ -96,31 +96,31 @@ state-detail | array of states | yes | controls generation of summary (state) le
 custom | list | yes | list of spreadsheets to generate. each property is a  spreadsheet name; property value is a state or a county, state.  One spreadsheet per property is generated. | `"custom": { "north_dakota": [ "Burleigh County, ND", "ND" ] }`
 
 ## "settings": {}
-This configuration block controls the script itself.  Fiddle with these settings to change the data you see.  Don't like my take of a 28 day average case...lower it.  raise it.  what happens?   Want to change the comparative per scales?  Or exclude fast swathes of the country?  These settings allow you to do just that--manipulate the data as *you* see fit.
+This configuration block controls the script itself.  Fiddle with these settings to change the data we see.  Don't like my take of a 28 day average case...lower it.  Or, raise it.  what happens?   Want to change the comparative per scales -- is 100k too big? Too small?  Or do we want to exclude vast swathes of the country?  The below settings allow you to do *just* that--manipulate the data as *you* see fit.
 
 *Data Controls*
 key | type | required | desc | example
 --- | ---- | -------- | ---- | -------
-case-min-benchmark | number | yes | minimum number of cases; acts a a reporting gate. If we want to eliminate low case load geographies, set this property to filter to the case loads we are interested in.  | `"case-min-benchmark": 1`
-case-days-duration | number | yes | average case duration - used in active vs recovered calculations | `"case-days-duration": 28`
-geography-per-county | number | yes | scaling factor for counties. Per capita is a value of one; cdc uses 100k. | `"geography-per-county": 100000`
-geography-per-state | number | yes |  scaling factor for states. Per capita is a value of one; cdc uses 100k. | `"geography-per-state": 100000`
+case-min-benchmark | Number | Yes | Minimum number of cases; acts a a reporting gate. If we want to eliminate low caseload geographies, we set this property to filter to just the caseloads we are interested in--say those at 100,000 or more, or even--minimum of 10, 1000.  | `"case-min-benchmark": 1`
+case-days-duration | Number | yes | Average case duration - used in active vs recovered calculations. | `"case-days-duration": 28`
+geography-per-county | Number | yes | Scaling factor for counties. Per capita is a value of one; cdc uses 100k. | `"geography-per-county": 100000`
+geography-per-state | Number | yes |  Scaling factor for states. Per capita is a value of one; cdc uses 100k. | `"geography-per-state": 100000`
 
 *Email Settings*
 key | type | required | desc | example
 --- | ---- | -------- | ---- | -------
-send-email  | boolean | yes | send email if true | `"send-email": true`
-send-email-client | enumeration | no | One of `Outlook` or `N/A`, sadly. | `"send-email-client": "Outlook"`
-send-email-to | array of emails | no | List of email addresses to send to. | `"send-email-to": [ "a@bc.com" ]`
-send-email-style | string | no | HTML styling for a swank email. | `"send-email-style": "font-family: Trebuchet MS; color:#25253b; font-size:14pt"`
-send-email-greeting | string | no | HTML email greeting | `"send-email-greeting": "Hello!<br>"`
-send-email-signature | string | no | HTML signaure | `"send-email-signature": "xoxo<br>Yours Truly!"`
+send-email  | Boolean | Yes | Send email if true | `"send-email": true`
+send-email-client | Enumeration | No | One of `Outlook` or `N/A`, sadly. | `"send-email-client": "Outlook"`
+send-email-to | Array of emails | No | List of email addresses to send to. | `"send-email-to": [ "a@bc.com" ]`
+send-email-style | String | No | HTML styling for a swank email. | `"send-email-style": "font-family: Trebuchet MS; color:#25253b; font-size:14pt"`
+send-email-greeting | String | No | HTML email greeting | `"send-email-greeting": "Hello!<br>"`
+send-email-signature | String | No | HTML signaure | `"send-email-signature": "xoxo<br>Yours Truly!"`
 
 # Spreadsheet Notes
 To do
 
 # Covid-19 Data
-* The New York Times. (2020). Coronavirus (Covid-19) Data in the United States. Retrieved from https://github.com/nytimes/covid-19-data.
+c/o The New York Times. (2020). Coronavirus (Covid-19) Data in the United States. Retrieved from https://github.com/nytimes/covid-19-data.
 
 *Usage*
 * The function `update_data` sync's Covid-19 via `git pull` into a sibiling directory c/o https://github.com/nytimes/covid-19-data :
@@ -144,11 +144,11 @@ Col #  | Field Name  | Desc | Sample
 6 | deaths | | `0`
 
 # Geography Data
-When NYT started reporting on covid-19, each day would introduce a slew of new US geographies.  Initially, I thought maybe
-I could pull in the data as it was needed--but, as data came in, the performance impact just got to be too great. It is important to cache geograpy in adavnce - so that as data comes pouring in, it has a place to go.
+When NYT started reporting on covid-19, each day would introduce a slew of new US geographies.  Initially, I thought maybe I could pull in the data as it was needed--but, as data came in, the performance impact just got to be too great. It is important to cache geograpy in adavnce - so that as data comes pouring in, it has a place to go.
 
 From [Census.gov](https://www.census.gov/geographies/reference-files/2018/demo/popest/2018-fips.html):
 ## [all-geocodes-v2018.csv](https://github.com/const-void/covid-19-spreadsheet/blob/master/all-geocodes-v2018.csv)
+[spreadsheet](https://www2.census.gov/programs-surveys/popest/geographies/2018/all-geocodes-v2018.xlsx) => csv.
 **Country Data**
 * Estimates Geography File: Vintage 2018
 * Source: U.S. Census Bureau, Population Division
@@ -158,7 +158,6 @@ From [Census.gov](https://www.census.gov/geographies/reference-files/2018/demo/p
 * Loaded by `Counties` constructor to create individual `County` objects.
 * Used to join County to State **( State Code (FIPS) )**
 * Used to join NYT Covid-19 data to County **( NYT FIPS Code = State Code (FIPS) + County Code (FIPS) )**
-[spreadsheet](https://www2.census.gov/programs-surveys/popest/geographies/2018/all-geocodes-v2018.xlsx) => csv.
 
 Col #  | Field Name  | Desc | Sample 
 ------ | ----------- | ---- | ------
