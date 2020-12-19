@@ -9,11 +9,12 @@ Send Outlook email w/covid-19 XLSX attachments, using New York Times as data sou
 ```
 $ git clone https://github.com/const-void/covid-19-spreadsheet
 $ cd covid19-19-spreadsheet
-$ pip install -r requirements
+$ pip install -r requirements.txt
 $ python ./covid19_data_gather.py
 $ python ./covid19_data_gather.py </path/to/conf.json>
-$ python ./covid19_data_gather.py sample_covid19_data_gather_conf.json
 ```
+
+Starting from a blank slate, everything should just work - cloning NYT data, creating a sample conf file for you to edit.  It should just work!
 
 # Goal
 I was pretty frusterated by how hard it was to answer simple questions--how many people HAVE covid, right now?  How does where I live, compare to where others live?  Are we doing ok, as a county, state, country? When I found out about the NYT data store, I jumped on it IMMEDIATELY.
@@ -21,7 +22,16 @@ I was pretty frusterated by how hard it was to answer simple questions--how many
 I also wanted to facilitate  analysis - so while emails are created automatically, they are not sent; the idea is, I, as a sender review, covid-19 data and makes some sort of conclusion.
 
 Otherwise...why generate spreadsheets at all?  If we aren't looking at data, thinking about what we see, sharing our thoughts with others, it becomes a mindless data generation task; there are too many spreadsheet generators, dumping data in a directory, never to be looked at, "just in case".
- 
+
+## Objectives
+1. Align data by *days* not *date*.  If one state catches covid in March, and another in June, I want to see how those states are doing compared to each other...days since contagion aligns peaks / valleys, and is more important than the *dates* of infection.
+
+2. Graphs.  Simple graphs of all the key measures.
+
+3. Educated guesses when the data is incomplete.  We can't really know for *sure* how many active cases are walking around. But, we can infer, a conservative estimate that the average case is done within 28 days - including days *prior* to a positive test, and lingering effects afterwards.
+
+4. Trends...how are we doing?  No rosy picture...if we are getting better, and continue to get better at that rate, when does it end?  If we are doing worse, how much worse?
+
 # Dependencies
 * Git - https://git-scm.com/downloads  (for New York Times sync) 
 * Python 3 -  https://www.python.org/downloads/ or https://www.microsoft.com/en-us/p/python-38/
@@ -72,11 +82,11 @@ Case sensitive!
 
 `cov19_data_gather.py` without a command line parameter will look for a `covid19_data_gather_conf.json` file. 
 
-If one isn't found, `sample_covid19_data_gather_conf.json` is used as starting place. 
+If one isn't found, one will be made for you! [`sample_covid19_data_gather_conf.json`](https://github.com/const-void/covid-19-spreadsheet/blob/master/sample_covid19_data_gather_conf.json) is used as starting place. 
 
-Note that `covid19_data_gather_conf.json` is in `.gitignore` -- this way you can have your own setup without having to worry about git collisions etc.  Alternatively, a given `/path/to/conf.json` can specified on the command line.
+Note that `covid19_data_gather_conf.json` is in [`.gitignore`](https://github.com/const-void/covid-19-spreadsheet/blob/master/.gitignore) -- this way you can have your own setup without having to worry about git collisions etc.  Alternatively, a given `/path/to/conf.json` can specified on the command line.
 
-All json configurations are validated -- once at a schema level via `covid19_data_gather_conf.schema.json`, and again, to make sure the intended geographies are accurate - counties have to match both US & NYT data *exactly*, including case sensitivity.  
+All json configurations are validated -- once at a schema level via [`covid19_data_gather_conf.schema.json`](https://github.com/const-void/covid-19-spreadsheet/blob/master/covid19_data_gather_conf.schema.json), and again, to make sure the intended geographies are accurate - counties have to match both US & NYT data *exactly*, including case sensitivity.  
 
 `los angeles, ca` will *fail* validation.  `Los Angeles County, CA` will pass.
 
@@ -119,7 +129,7 @@ send-email-signature | String | No | HTML signaure | `"send-email-signature": "x
 # Spreadsheet Notes
 To do
 
-# Covid-19 Data
+# [Covid-19 Data](https://github.com/nytimes/covid-19-data/blob/master/us-counties.csv)
 c/o The New York Times. (2020). Coronavirus (Covid-19) Data in the United States. Retrieved from https://github.com/nytimes/covid-19-data.
 
 *Usage*
@@ -190,9 +200,9 @@ Col # | Field Name | Desc | Sample
 Simply knowing geography and case wasn't enough--I wanted to know the sense of scale, and not 
 just within a geography...but also *across* geographies.  How do counties compare to other counties? And states?
 
-## co-est2019-annres.csv
+## [co-est2019-annres.csv](https://github.com/const-void/covid-19-spreadsheet/blob/master/co-est2019-annres.csv)
 **County Population Estimates**
-(src)[https://www.census.gov/newsroom/press-kits/2020/pop-estimates-county-metro.html] [spreadsheet](https://www2.census.gov/programs-surveys/popest/tables/2010-2019/counties/totals/co-est2019-annres.xlsx) => csv
+[src](https://www.census.gov/newsroom/press-kits/2020/pop-estimates-county-metro.html) [spreadsheet](https://www2.census.gov/programs-surveys/popest/tables/2010-2019/counties/totals/co-est2019-annres.xlsx) => csv
 * Annual Estimates of the Resident Population for Counties in the United States: April 1, 2010 to July 1, 2019 (CO-EST2019-ANNRES)
 * Source: U.S. Census Bureau, Population Division	
 * Release Date: March 2020	
@@ -217,7 +227,7 @@ Col # | Field Name | Desc | Sample
 12 | 2018 | | `55533`
 13 | 2019 | | `55869`
 
-## nst-est2019-01.csv
+## [nst-est2019-01.csv](https://github.com/const-void/covid-19-spreadsheet/blob/master/nst-est2019-01.csv)
 **State Population Estimates**
 [src](https://www.census.gov/data/tables/time-series/demo/popest/2010s-national-total.html
 ) [spreadsheet](https://www2.census.gov/programs-surveys/popest/tables/2010-2019/state/totals/nst-est2019-01.xlsx) => csv
