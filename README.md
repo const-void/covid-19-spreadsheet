@@ -37,7 +37,7 @@ Otherwise...why generate spreadsheets at all?  If we aren't looking at data, thi
 * Python 3 -  https://www.python.org/downloads/ or https://www.microsoft.com/en-us/p/python-38/
 * pip c/o [requirement.txt](https://pip.pypa.io/en/stable/user_guide/#requirements-files):
     * openpyxl - native spreadsheet generation
-    * gitpython - nyt coid-19-data git repo clone / pull
+    * gitpython - nyt covid-19-data git repo clone / pull
     * fastjsonschema - json configuration file  
     * pywin32 - Outlook email
 
