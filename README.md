@@ -156,6 +156,8 @@ Col #  | Field Name  | Desc | Sample
 # Geography Data
 When NYT started reporting on covid-19, each day would introduce a slew of new US geographies.  Initially, I thought maybe I could pull in geography data as it was found--but, as data came in, the performance impact just got to be too great. It is important to cache geograpy in adavnce - so that as new geography data comes pouring in, it has a place to go.
 
+And that meant...source US geography. 
+
 From [Census.gov](https://www.census.gov/geographies/reference-files/2018/demo/popest/2018-fips.html):
 ## [all-geocodes-v2018.csv](https://github.com/const-void/covid-19-spreadsheet/blob/master/all-geocodes-v2018.csv)
 [spreadsheet](https://www2.census.gov/programs-surveys/popest/geographies/2018/all-geocodes-v2018.xlsx) => csv.
