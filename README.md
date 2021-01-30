@@ -14,7 +14,7 @@ $ python ./covid19_data_gather.py
 $ python ./covid19_data_gather.py </path/to/conf.json>
 ```
 
-Starting from a blank slate, everything should just work - cloning NYT data, creating a sample conf file for you to edit.  It should just work!
+Starting from a blank slate, everything should just work - cloning NYT data, creating a sample conf file for you to edit.  It should just work, with any luck.
 
 # Goal
 I was pretty frusterated by how hard it was to answer simple questions--how many people HAVE covid, right now?  How does where I live, compare to where others live?  Are we doing ok, as a county, state, country? When I found out about the NYT data store, I jumped on it IMMEDIATELY.
